@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!--一般参数 初始化  -->
+    <record id="gongzuoshijian" model="xz.yibcs">
+        <field name="name">工作时间(小时/天)</field>
+        <field name="bianm">JJTS</field>
+        <field name="zhi">10.5</field>
+    </record>
+    <record id="jijiameitiandanjia" model="xz.yibcs">
+        <field name="name">机加每天单价(元)</field>
+        <field name="bianm">JJTY</field>
+        <field name="zhi">75</field>
+    </record>
+    <record id="dagongdanjia" model="xz.yibcs">
+        <field name="name">大工单价(元/小时)</field>
+        <field name="bianm">JJDG</field>
+        <field name="zhi">12.5</field>
+    </record>
+    <!--加工设备  -->
+    <record id="jiagongzhongxin" model="xz.jiagsb">
+        <field name="name">加工中心</field>
+    </record>
+    <record id="shukongchechuang" model="xz.jiagsb">
+        <field name="name">数控车床</field>
+    </record>
+    <record id="tanshangji" model="xz.jiagsb">
+        <field name="name">探伤机</field>
+    </record>
+    <record id="chegunfuheji" model="xz.jiagsb">
+        <field name="name">车滚复核机</field>
+    </record>
+    <!--序列类型  -->
+    <record id="jijiajijiandantype" model="ir.sequence.type">
+        <field name="name">计件单－机加</field>
+        <field name="code">xz.baogongdan</field>
+    </record>
+    <record id="jijiadagongdantype" model="ir.sequence.type">
+        <field name="name">大工单－机加</field>
+        <field name="code">xz.dagongdan</field>
+    </record>
+    <!--序列  -->
+    <record id="jijiajijiandan" model="ir.sequence">
+        <field name="name">报工单</field>
+        <field name="code">xz.baogongdan</field>
+        <field name="active">True</field>
+        <field name="prefix">BGD/</field>
+        <field name="implementation">standard</field>
+    </record>
+    <record id="jijiadagongdan" model="ir.sequence">
+        <field name="name">大工单</field>
+        <field name="code">xz.dagongdan</field>
+        <field name="active">True</field>
+        <field name="prefix">DGD/</field>
+        <field name="implementation">standard</field>
+    </record>
+  </data>
+</openerp>

@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <!-- menuitem -->
+    <menuitem name="薪资" id="top_menu_xinzi"/>
+    <menuitem name="薪资" id="left_menu_xinzi" parent="top_menu_xinzi" />
+    <menuitem name="单据" id="left_menu_form" parent="left_menu_xinzi" />
+    <menuitem name="配置" id="left_menu_set" parent="left_menu_xinzi" />
+    
+    <!-- 一般参数 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_yibcs_search">
+      <field name="name">xz_yibcs.search</field>
+      <field name="model">xz.yibcs</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_yibcs">
+          <field name="name" />
+          <field name="bianm" />
+          <field name="zhi" />
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_yibcs_tree">
+      <field name="name">xz_yibcs.tree</field>
+      <field name="model">xz.yibcs</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_yibcs">
+          <field name="name" select="1" invisible="0" />
+          <field name="bianm" select="1" invisible="0" />
+          <field name="zhi" select="1" invisible="0" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_yibcs_form">
+      <field name="name">xz_yibcs.form</field>
+      <field name="model">xz.yibcs</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_yibcs" version="7.0">
+          <header>
+          </header>
+          <sheet>
+            <group>
+              <field name="name" invisible="0" />
+              <field name="bianm" invisible="0" />
+              <field name="zhi" invisible="0" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_yibcs_form">
+      <field name="name">一般参数</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.yibcs</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_xz_yibcs_search"/>
+    </record>
+    <!-- menuitem -->
+    <menuitem name="一般参数" id="menu_xz_yibcs_form" parent="left_menu_set" action="action_xz_yibcs_form"/>
+
+
+    <!-- 加工设备 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_jiagsb_search">
+      <field name="name">xz_jiagsb.search</field>
+      <field name="model">xz.jiagsb</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_jiagsb">
+          <field name="name" />
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_jiagsb_tree">
+      <field name="name">xz_jiagsb.tree</field>
+      <field name="model">xz.jiagsb</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_jiagsb">
+          <field name="name" select="1" invisible="0" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_jiagsb_form">
+      <field name="name">xz_jiagsb.form</field>
+      <field name="model">xz.jiagsb</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_jiagsb" version="7.0">
+          <header>
+          </header>
+          <sheet>
+            <group>
+              <field name="name" invisible="0" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_jiagsb_form">
+      <field name="name">加工设备</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.jiagsb</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_jiagsb_tree"/>
+      <field name="search_view_id" ref="view_xz_jiagsb_search"/>
+    </record>
+    <!-- menuitem -->
+    <menuitem name="加工设备" id="menu_xz_jiagsb_form" parent="left_menu_set" action="action_xz_jiagsb_form"/>
+ 
+    <!-- 工序 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gongx_search">
+      <field name="name">xz_gongx.search</field>
+      <field name="model">xz.gongx</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gongx">
+          <field name="chanp" />
+          <field name="jiagsb" />
+          <field name="name" />
+          <field name="banc" />
+          <field name="dinge" />
+          <field name="xianjgsj" />
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gongx_tree">
+      <field name="name">xz_gongx.tree</field>
+      <field name="model">xz.gongx</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gongx">
+          <field name="name" select="1" invisible="0" />
+          <field name="chanp" select="1" invisible="0" />
+          <field name="jiagsb" select="1" invisible="0" />
+          <field name="banc" select="1" invisible="0" />
+          <field name="dinge" select="1" invisible="0" />
+          <field name="xianjgsj" select="1" invisible="0" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_gongx_form">
+      <field name="name">xz_gongx.form</field>
+      <field name="model">xz.gongx</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_gongx" version="7.0">
+          <header>
+          </header>
+          <sheet>
+            <group>
+              <field name="chanp" invisible="0" on_change="onchange_chanp_jiagsb(chanp,jiagsb,name)" />
+              <field name="jiagsb" invisible="0" on_change="onchange_chanp_jiagsb(chanp,jiagsb,name)" />
+              <field name="name" invisible="0" />
+              <field name="xianjgsj" invisible="0" on_change="onchange_xianjgsj(xianjgsj)" />
+              <field name="banc" invisible="0" />
+              <field name="dinge" invisible="0" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gongx_form">
+      <field name="name">工序</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gongx</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_gongx_tree"/>
+      <field name="search_view_id" ref="view_xz_gongx_search"/>
+    </record>
+    <!-- menuitem -->
+    <menuitem name="工序" id="menu_xz_gongx_form" parent="left_menu_set" action="action_xz_gongx_form"/>
+ 
+    <!-- 报工单 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_baogongdan_search">
+      <field name="name">xz_baogongdan.search</field>
+      <field name="model">xz.baogongdan</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_baogongdan">
+          <field name="riq" />
+          <field name="chanp" />
+          <field name="gongx" />
+          <field name="yuang" />
+          <field name="shul" />
+          <field name="gongz" />
+          <field name="state" />
+          <field name="beiz" />
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_baogongdan_tree">
+      <field name="name">xz_baogongdan.tree</field>
+      <field name="model">xz.baogongdan</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_baogongdan">
+          <field name="name" select="1" invisible="0" />
+          <field name="riq" select="1" invisible="0" />
+          <field name="chanp" select="1" invisible="0" />
+          <field name="gongx" select="1" invisible="0" />
+          <field name="yuang" select="1" invisible="0" />
+          <field name="shul" select="1" invisible="0" />
+          <field name="gongz" select="1" invisible="0" />
+          <field name="beiz" select="1" invisible="0" />
+          <field name="state" select="1" invisible="0" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_baogongdan_form">
+      <field name="name">xz_baogongdan.form</field>
+      <field name="model">xz.baogongdan</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_baogongdan" version="7.0">
+          <header>
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="yuang" invisible="0" />
+              </group>
+              <group>
+                <field name="riq" invisible="0" />
+                <field name="chanp" invisible="0" on_change="product_id_change(chanp)" />
+              </group>
+            </group>
+            <group>
+              <field name="gongx" invisible="0" on_change="gongx_id_change(gongx,shul)" domain="[('chanp','=',chanp)]" context="{'chanp': chanp}" />
+              <field name="shul" invisible="0" on_change="gongx_id_change(gongx,shul)" />
+              <field name="gongz" invisible="0" />
+              <field name="state" invisible="0" />
+              <field name="beiz" invisible="0" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_baogongdan_form">
+      <field name="name">报工单</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.baogongdan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_baogongdan_tree"/>
+      <field name="search_view_id" ref="view_xz_baogongdan_search"/>
+    </record>
+    <!-- menuitem -->
+    <menuitem name="报工单" id="menu_xz_baogongdan_form" parent="left_menu_form" action="action_xz_baogongdan_form"/>
+    
+    <!-- 大工单 -->
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_dagongdan_tree">
+      <field name="name">xz_dagongdan.tree</field>
+      <field name="model">xz.dagongdan</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_dagongdan">
+          <field name="name" />
+          <field name="riq" />
+          <field name="yuang" />
+          <field name="shul" />
+          <field name="gongz" />
+          <field name="beiz" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_dagongdan_form">
+      <field name="name">xz_dagongdan.form</field>
+      <field name="model">xz.dagongdan</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_dagongdan" version="7.0">
+          <header>
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="yuang" on_change="onchange_yuang(riq)" />
+              </group>
+              <group>
+                <field name="riq" on_change="onchange_yuang(riq)" />
+                <field name="shul" on_change="onchange_shul(shul)" />
+              </group>
+            </group>
+            <group>
+              <field name="gongz"/>
+              <field name="state"/>
+              <field name="beiz"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_dagongdan_form">
+      <field name="name">大工单</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.dagongdan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_dagongdan_tree"/>
+    </record>
+    <!-- menuitem -->
+    <menuitem name="大工单" id="menu_xz_dagongdan_form" parent="left_menu_form" action="action_xz_dagongdan_form"/>
+  </data>
+</openerp>
