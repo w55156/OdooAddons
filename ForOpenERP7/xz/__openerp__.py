@@ -8,12 +8,12 @@
   'description': "拓普公司  制动  辅助车间员工 工资计算自动化",
   'author': '王春来  QQ 363682158',
   'website': 'www.tuopu.com',
-  'depends': ['product','hr',],
+  'depends': ['hr','sale'],
   'data': ['xz_view.xml','xz_data.xml'],
   'demo': [],
   'test': [],
-  'images': ['images/xz.jpeg',],
+  'images': [],
   'css': ['static/src/css/xz.css',],
   'installable': True,
-  'auto_install': False,
+  'auto_install': False
 }

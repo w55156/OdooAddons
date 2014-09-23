@@ -1,0 +1,4 @@
+.xz_field_readonly
+{
+  readonly:expression(this.readOnly=true);
+}

@@ -2,12 +2,56 @@
 <openerp>
   <data>
 
-    <!-- menuitem -->
+    <!-- init menuitem -->
     <menuitem name="薪资" id="top_menu_xinzi"/>
     <menuitem name="薪资" id="left_menu_xinzi" parent="top_menu_xinzi" />
     <menuitem name="单据" id="left_menu_form" parent="left_menu_xinzi" />
     <menuitem name="配置" id="left_menu_set" parent="left_menu_xinzi" />
     
+    <!-- 集体工资组 -->
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_groups_tree">
+      <field name="name">xz_groups.tree</field>
+      <field name="model">xz.groups</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_groups">
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_groups_form">
+      <field name="name">xz_groups.form</field>
+      <field name="model">xz.groups</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_groups" version="7.0">
+          <header>
+          </header>
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+            <notebook>
+              <page string="员工">
+                <field name="employees" />
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_groups_form">
+      <field name="name">集体工资组</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.groups</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_groups_tree"/>
+    </record>
+       
     <!-- 一般参数 -->
     <!-- Search View -->
     <record model="ir.ui.view" id="view_xz_yibcs_search">
@@ -63,9 +107,6 @@
       <field name="view_mode">tree,form</field>
       <field name="search_view_id" ref="view_xz_yibcs_search"/>
     </record>
-    <!-- menuitem -->
-    <menuitem name="一般参数" id="menu_xz_yibcs_form" parent="left_menu_set" action="action_xz_yibcs_form"/>
-
 
     <!-- 加工设备 -->
     <!-- Search View -->
@@ -117,9 +158,7 @@
       <field name="view_id" ref="view_xz_jiagsb_tree"/>
       <field name="search_view_id" ref="view_xz_jiagsb_search"/>
     </record>
-    <!-- menuitem -->
-    <menuitem name="加工设备" id="menu_xz_jiagsb_form" parent="left_menu_set" action="action_xz_jiagsb_form"/>
- 
+     
     <!-- 工序 -->
     <!-- Search View -->
     <record model="ir.ui.view" id="view_xz_gongx_search">
@@ -185,9 +224,7 @@
       <field name="view_id" ref="view_xz_gongx_tree"/>
       <field name="search_view_id" ref="view_xz_gongx_search"/>
     </record>
-    <!-- menuitem -->
-    <menuitem name="工序" id="menu_xz_gongx_form" parent="left_menu_set" action="action_xz_gongx_form"/>
- 
+    
     <!-- 报工单 -->
     <!-- Search View -->
     <record model="ir.ui.view" id="view_xz_baogongdan_search">
@@ -196,14 +233,8 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search string="xz_baogongdan">
-          <field name="riq" />
-          <field name="chanp" />
-          <field name="gongx" />
-          <field name="yuang" />
-          <field name="shul" />
-          <field name="gongz" />
-          <field name="state" />
-          <field name="beiz" />
+          <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
+          <filter string="已关闭" name="done" domain="[('state','=','done')]" />
         </search>
       </field>
     </record>
@@ -215,6 +246,7 @@
       <field name="arch" type="xml">
         <tree string="xz_baogongdan">
           <field name="name" select="1" invisible="0" />
+          <field name="period_code" />
           <field name="riq" select="1" invisible="0" />
           <field name="chanp" select="1" invisible="0" />
           <field name="gongx" select="1" invisible="0" />
@@ -239,19 +271,20 @@
           <sheet>
             <group>
               <group>
-                <field name="name"/>
-                <field name="yuang" invisible="0" />
+                <field name="name" invisible="1" />
+                <field name="riq" on_change="onchange_yuang(riq)" />
               </group>
               <group>
-                <field name="riq" invisible="0" />
-                <field name="chanp" invisible="0" on_change="product_id_change(chanp)" />
+                <field name="period_code" invisible="1" />
+                <field name="yuang" on_change="onchange_yuang(riq)" />
               </group>
             </group>
             <group>
+              <field name="chanp" on_change="product_id_change(chanp)" />
               <field name="gongx" invisible="0" on_change="gongx_id_change(gongx,shul)" domain="[('chanp','=',chanp)]" context="{'chanp': chanp}" />
               <field name="shul" invisible="0" on_change="gongx_id_change(gongx,shul)" />
-              <field name="gongz" invisible="0" />
-              <field name="state" invisible="0" />
+              <field name="gongz" invisible="1" />
+              <field name="state" invisible="1" />
               <field name="beiz" invisible="0" />
             </group>
           </sheet>
@@ -268,18 +301,33 @@
       <field name="view_id" ref="view_xz_baogongdan_tree"/>
       <field name="search_view_id" ref="view_xz_baogongdan_search"/>
     </record>
-    <!-- menuitem -->
-    <menuitem name="报工单" id="menu_xz_baogongdan_form" parent="left_menu_form" action="action_xz_baogongdan_form"/>
     
     <!-- 大工单 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_dagongdan_search">
+      <field name="name">xz_dagongdan.search</field>
+      <field name="model">xz.dagongdan</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_dagongdan">
+          <field name="name" filter_domain="['|',('name','ilike',self),('yuang','ilike',self)]" />
+          <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
+          <filter string="已关闭" name="done" domain="[('state','=','done')]" />
+          <group expand="0" string="分组">
+            <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
     <!-- tree view -->
     <record model="ir.ui.view" id="view_xz_dagongdan_tree">
       <field name="name">xz_dagongdan.tree</field>
       <field name="model">xz.dagongdan</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="xz_dagongdan">
+        <tree string="xz_dagongdan" colors="blue:state == 'draft';gray:state == 'done'" >
           <field name="name" />
+          <field name="period_code" />
           <field name="riq" />
           <field name="yuang" />
           <field name="shul" />
@@ -297,22 +345,23 @@
       <field name="arch" type="xml">
         <form string="xz_dagongdan" version="7.0">
           <header>
-            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue","done":"blue"}'/>  
           </header>
           <sheet>
             <group>
               <group>
-                <field name="name"/>
-                <field name="yuang" on_change="onchange_yuang(riq)" />
+                <field name="name" class="xz_field_readonly" />
+                <field name="riq" on_change="onchange_yuang(riq)" />
               </group>
               <group>
-                <field name="riq" on_change="onchange_yuang(riq)" />
-                <field name="shul" on_change="onchange_shul(shul)" />
+                <field name="period_code" class="oe_form_readonly" />
+                <field name="yuang" on_change="onchange_yuang(riq)" />
               </group>
             </group>
             <group>
-              <field name="gongz"/>
-              <field name="state"/>
+              <field name="shul" on_change="onchange_shul(shul)" />
+              <field name="gongz" class="oe_form_readonly" />
+              <field name="state" class="oe_form_readonly" />
               <field name="beiz"/>
             </group>
           </sheet>
@@ -327,8 +376,141 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="view_xz_dagongdan_tree"/>
+      <field name="search_view_id" ref="view_xz_dagongdan_search"/>
+      <field name="context">{'search_default_draft':1}</field>
+      <field name="domain">[]</field>
     </record>
-    <!-- menuitem -->
+         
+    <!-- 组计件单 -->
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gbaogongdan_tree">
+      <field name="name">xz_gbaogongdan.tree</field>
+      <field name="model">xz.gbaogongdan</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gbaogongdan">
+          <field name="name" />
+          <field name="riq" />
+          <field name="chanp" />
+          <field name="gongx" />
+          <field name="group" />
+          <field name="shul" />
+          <field name="gongz" />
+          <field name="beiz" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_gbaogongdan_form">
+      <field name="name">xz_gbaogongdan.form</field>
+      <field name="model">xz.gbaogongdan</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_gbaogongdan" version="7.0">
+          <header>
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="group" on_change="onchange_group(riq)" />
+              </group>
+              <group>
+                <field name="riq" on_change="onchange_group(riq)" />
+                <field name="chanp" on_change="product_id_change(chanp)" />
+              </group>
+            </group>
+            <group>
+              <field name="gongx" invisible="0" on_change="gongx_id_change(gongx,shul)" domain="[('chanp','=',chanp)]" context="{'chanp': chanp}" />
+              <field name="shul" invisible="0" on_change="gongx_id_change(gongx,shul)" />
+              <field name="gongz" invisible="0" />
+              <field name="state" invisible="0" />
+              <field name="beiz" invisible="0" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gbaogongdan_form">
+      <field name="name">组计件单</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gbaogongdan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_gbaogongdan_tree"/>
+    </record>
+    
+    <!-- 组大工单 -->
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gdagongdan_tree">
+      <field name="name">xz_gdagongdan.tree</field>
+      <field name="model">xz.gdagongdan</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gdagongdan">
+          <field name="name" />
+          <field name="riq" />
+          <field name="group" />
+          <field name="shul" />
+          <field name="gongz" />
+          <field name="beiz" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_gdagongdan_form">
+      <field name="name">xz_gdagongdan.form</field>
+      <field name="model">xz.gdagongdan</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_gdagongdan" version="7.0">
+          <header>
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue","done":"blue"}'/>  
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="group" on_change="onchange_group(riq)" />
+              </group>
+              <group>
+                <field name="riq" on_change="onchange_group(riq)" />
+                <field name="shul" on_change="onchange_shul(shul)" />
+              </group>
+            </group>
+            <group>
+              <field name="gongz" invisible="1" />
+              <field name="state" invisible="1" />
+              <field name="beiz"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gdagongdan_form">
+      <field name="name">组大工单</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gdagongdan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_gdagongdan_tree"/>
+    </record>
+    
+    <!-- menuitem form -->
+    <menuitem name="计件单" id="menu_xz_baogongdan_form" parent="left_menu_form" action="action_xz_baogongdan_form"/>
     <menuitem name="大工单" id="menu_xz_dagongdan_form" parent="left_menu_form" action="action_xz_dagongdan_form"/>
+    <menuitem name="计件单(组)" id="menu_xz_gbaogongdan_form" parent="left_menu_form" action="action_xz_gbaogongdan_form"/>
+    <menuitem name="大工单(组)" id="menu_xz_gdagongdan_form" parent="left_menu_form" action="action_xz_gdagongdan_form"/>
+    <!-- menuitem set -->
+    <menuitem name="一般参数" id="menu_xz_yibcs_form" parent="left_menu_set" action="action_xz_yibcs_form"/>
+    <menuitem name="加工设备" id="menu_xz_jiagsb_form" parent="left_menu_set" action="action_xz_jiagsb_form"/>
+    <menuitem name="工资组" id="menu_xz_groups_form" parent="left_menu_set" action="action_xz_groups_form"/>
+    <menuitem name="工序" id="menu_xz_gongx_form" parent="left_menu_set" action="action_xz_gongx_form"/>
+
   </data>
 </openerp>

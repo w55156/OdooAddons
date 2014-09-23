@@ -32,16 +32,24 @@
     </record>
     <!--序列类型  -->
     <record id="jijiajijiandantype" model="ir.sequence.type">
-        <field name="name">计件单－机加</field>
+        <field name="name">计件单</field>
         <field name="code">xz.baogongdan</field>
     </record>
     <record id="jijiadagongdantype" model="ir.sequence.type">
-        <field name="name">大工单－机加</field>
+        <field name="name">大工单</field>
         <field name="code">xz.dagongdan</field>
+    </record>
+        <record id="zhujijiandantype" model="ir.sequence.type">
+        <field name="name">组计件单</field>
+        <field name="code">xz.gbaogongdan</field>
+    </record>
+    <record id="zhudagongdantype" model="ir.sequence.type">
+        <field name="name">组大工单</field>
+        <field name="code">xz.gdagongdan</field>
     </record>
     <!--序列  -->
     <record id="jijiajijiandan" model="ir.sequence">
-        <field name="name">报工单</field>
+        <field name="name">计件单</field>
         <field name="code">xz.baogongdan</field>
         <field name="active">True</field>
         <field name="prefix">BGD/</field>
@@ -52,6 +60,20 @@
         <field name="code">xz.dagongdan</field>
         <field name="active">True</field>
         <field name="prefix">DGD/</field>
+        <field name="implementation">standard</field>
+    </record>
+        <record id="zhujijiandan" model="ir.sequence">
+        <field name="name">组计件单</field>
+        <field name="code">xz.gbaogongdan</field>
+        <field name="active">True</field>
+        <field name="prefix">GBGD/</field>
+        <field name="implementation">standard</field>
+    </record>
+    <record id="zhudagongdan" model="ir.sequence">
+        <field name="name">组大工单</field>
+        <field name="code">xz.gdagongdan</field>
+        <field name="active">True</field>
+        <field name="prefix">GDGD/</field>
         <field name="implementation">standard</field>
     </record>
   </data>
