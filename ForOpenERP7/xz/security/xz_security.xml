@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record model="res.groups" id="group_xz_manager">
+            <field name="name">管理员</field>
+            <field name="category_id" ref="base.module_category_xinzi" />
+        </record>
+        <record model="res.groups" id="group_xz_user">
+            <field name="name">用户</field>
+            <field name="category_id" ref="base.module_category_xinzi" />
+        </record>
+        <record model="res.groups" id="group_xz_caiwu">
+            <field name="name">财务</field>
+            <field name="category_id" ref="base.module_category_xinzi" />
+        </record>
+    </data>
+</openerp>

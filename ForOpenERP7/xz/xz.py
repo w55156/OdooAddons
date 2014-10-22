@@ -11,7 +11,11 @@ from openerp.osv import fields
 from openerp.tools.translate import _  
 from osv.osv import except_osv
 
+#----------------------------------------------------#   
+#                  全局变量定义                                                             #
+#----------------------------------------------------#
 
+    
 #----------------------------------------------------#   
 #                配置类                                                                                 #
 #----------------------------------------------------#
@@ -108,6 +112,7 @@ class xz_gongx(osv.osv):
             jiagsb_name = jiagsb.name
         return {'value': {'name': prod_name+'-'+jiagsb_name}}
 
+
 #----------------------------------------------------------------#   
 #                       个人单据类                                                                                    #
 #----------------------------------------------------------------#
@@ -123,7 +128,7 @@ class xz_baogongdan(osv.osv):
     _columns = {
            'name': fields.char(u'编号', size=64, required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'riq' : fields.date(u'日期',required=True, readonly=True,states={'draft': [('readonly', False)]}),
-           'period_code': fields.char(u'会计期间',required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'period_id' : fields.many2one('account.period',u'会计期间', required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'chanp': fields.many2one('product.product', u'产品', required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'gongx' : fields.many2one('xz.gongx',u'工序',domain=[('gongx','=',False)],required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'yuang' : fields.many2one('hr.employee',u'员工',required=True, readonly=True,states={'draft': [('readonly', False)]}),
@@ -132,14 +137,9 @@ class xz_baogongdan(osv.osv):
            'beiz' : fields.text(u'备注/说明', readonly=True,states={'draft': [('readonly', False)]}),
            'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
           }
-    def _get_default_period_code(self,cr,uid,ids):
-        riq_sp = datetime.datetime.strftime(datetime.date.today(),'%m/%Y/%d')
-        myear=riq_sp[:6]
-        return myear
 
     _defaults = {
         'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'xz.baogongdan') or '/',
-        'period_code':_get_default_period_code,
         'riq':fields.date.context_today,  
         'shul':0.0,
         'state':lambda *a:'draft'
@@ -151,7 +151,7 @@ class xz_baogongdan(osv.osv):
     def onchange_yuang(self,cr,uid,ids,riq,context=None):
         value = {
             'riq':False,
-            'period_code':False
+            'period_id':False
             }
         warning1 = {
             'title': _('Warning!'),
@@ -161,9 +161,10 @@ class xz_baogongdan(osv.osv):
             return {'warning':warning1,'value':value}
         riq_sp = riq.split('-')
         myear=riq_sp[1]+'/'+riq_sp[0]
-        cr.execute('select name from account_period where state=\'draft\' and code=\''+myear+'\';')
-        if len(cr.fetchall())>0:
-            return {'value':{'period_code':myear}}
+        cr.execute('select id,name from account_period where state=\'draft\' and code=\''+myear+'\';')
+        rt_set = cr.fetchone()
+        if rt_set:
+            return {'value':{'period_id':rt_set[0]}}
         else:
             warning2 = {
             'title': _('Warning!'),
@@ -216,24 +217,25 @@ class xz_dagongdan(osv.osv):
     _columns = {
            'name': fields.char(u'编号', size=64, required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'riq' : fields.date(u'日期',required=True, readonly=True,states={'draft': [('readonly', False)]}),
-           'period_code': fields.char(u'会计期间',required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'period_id' : fields.many2one('account.period',u'会计期间', required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'yuang' : fields.many2one('hr.employee',u'员工',required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'shul' : fields.float(u'数量(小时)',required=True,readonly=True,states={'draft': [('readonly', False)]}),
            'gongz' : fields.float(u'工资', readonly=True,states={'draft': [('readonly', False)]}),
            'beiz' : fields.text(u'备注/说明', readonly=True,states={'draft': [('readonly', False)]}),
            'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
           }
-    def _get_default_period_code(self,cr,uid,ids):
+    def _get_default_period_id(self,cr,uid,ids):
         riq_sp = datetime.datetime.strftime(datetime.date.today(),'%m/%Y/%d')
-        myear=riq_sp[:6]
+        myear=riq_sp[:7]
         return myear
+    
     _defaults = {
         'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'xz.dagongdan') or '/',
         'riq':fields.date.context_today, 
-        'period_code':_get_default_period_code,
         'shul':0.0,
         'state':lambda *a:'draft'
     }
+    
     _sql_constraints = [
         ('name','unique(name)',u'名称不能重复'),
         ('riq_yuang', 'unique(riq,yuang)', u'特定的日期不能重复报工')
@@ -242,7 +244,7 @@ class xz_dagongdan(osv.osv):
     def onchange_yuang(self,cr,uid,ids,riq,context=None):
         value = {
             'riq':False,
-            'period_code':False
+            'period_id':False
             }
         warning1 = {
             'title': _('Warning!'),
@@ -252,9 +254,10 @@ class xz_dagongdan(osv.osv):
             return {'warning':warning1,'value':value}
         riq_sp = riq.split('-')
         myear=riq_sp[1]+'/'+riq_sp[0]
-        cr.execute('select name from account_period where state=\'draft\' and code=\''+myear+'\';')
-        if len(cr.fetchall())>0:
-            return {'value':{'period_code':myear}}
+        cr.execute('select id,name from account_period where state=\'draft\' and code=\''+myear+'\';')
+        rt_set = cr.fetchone()
+        if rt_set:
+            return {'value':{'period_id':rt_set[0]}}
         else:
             warning2 = {
             'title': _('Warning!'),
@@ -297,37 +300,40 @@ class xz_gbaogongdan(osv.osv):
     _columns = {
            'name': fields.char(u'编号', size=64, required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'riq' : fields.date(u'日期',required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'period_id' : fields.many2one('account.period',u'会计期间', required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'chanp': fields.many2one('product.product', u'产品', required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'gongx' : fields.many2one('xz.gongx',u'工序',domain=[('gongx','=',False)],required=True, readonly=True,states={'draft': [('readonly', False)]}),
-           'group' : fields.many2one('xz.groups',u'组',required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'group_id' : fields.many2one('xz.groups',u'组',required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'shul' : fields.float(u'数量',required=True,readonly=True,states={'draft': [('readonly', False)]}),
            'gongz' : fields.float(u'工资', readonly=True,states={'draft': [('readonly', False)]}),
            'beiz' : fields.text(u'备注/说明', readonly=True,states={'draft': [('readonly', False)]}),
            'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
           }
+       
     _defaults = {
         'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'xz.gbaogongdan') or '/',
-        'riq':fields.date.context_today,  
+        'riq':fields.date.context_today, 
         'shul':0.0,
         'state':lambda *a:'draft'
     }
     _sql_constraints = [
         ('name','unique(name)',u'名称不能重复'),
-        ('riq_chanp_gongx_group', 'unique(riq,chanp,gongx,group)', u'特定的日期不能重复报工')
+        ('riq_chanp_gongx_group_id', 'unique(riq,chanp,gongx,group_id)', u'特定的日期不能重复报工')
     ]
     
-    def onchange_group(self,cr,uid,ids,riq,context=None):
+    def onchange_group_id(self,cr,uid,ids,riq,context=None):
         if not riq:
             riq = '2000-01-01'
         riq_sp = riq.split('-')
         myear=riq_sp[1]+'/'+riq_sp[0]
-        cr.execute('select name from account_period where state=\'draft\' and code=\''+myear+'\';')
-        if len(cr.fetchall())>0:
-            return True
+        cr.execute('select id,name from account_period where state=\'draft\' and code=\''+myear+'\';')
+        rt_set = cr.fetchone()
+        if rt_set:
+            return {'value':{'period_id':rt_set[0]}}
         else:
             warning = {
                 'title': _('Warning!'),
-                'message' : _(u'当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!')
+                'message' : _(myear+u'当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!')
                 }
             #raise osv.except_osv(_('Error'),_('会计期间已关闭，请重新选择日期'))
             value = {
@@ -377,12 +383,14 @@ class xz_gdagongdan(osv.osv):
     _columns = {
            'name': fields.char(u'编号', size=64, required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'riq' : fields.date(u'日期',required=True, readonly=True,states={'draft': [('readonly', False)]}),
-           'group' : fields.many2one('xz.groups',u'组',required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'period_id' : fields.many2one('account.period',u'会计期间', required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'group_id' : fields.many2one('xz.groups',u'组',required=True, readonly=True,states={'draft': [('readonly', False)]}),
            'shul' : fields.float(u'数量(小时)',required=True,readonly=True,states={'draft': [('readonly', False)]}),
            'gongz' : fields.float(u'工资', readonly=True,states={'draft': [('readonly', False)]}),
            'beiz' : fields.text(u'备注/说明', readonly=True,states={'draft': [('readonly', False)]}),
            'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
           }
+       
     _defaults = {
         'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'xz.gdagongdan') or '/',
         'riq':fields.date.context_today,  
@@ -391,23 +399,23 @@ class xz_gdagongdan(osv.osv):
     }
     _sql_constraints = [
         ('name','unique(name)',u'名称不能重复'),
-        ('riq_group', 'unique(riq,group)', u'特定的日期不能重复报工')
+        ('riq_group_id', 'unique(riq,group_id)', u'特定的日期不能重复报工')
     ]
 
-    def onchange_group(self,cr,uid,ids,riq,context=None):
+    def onchange_group_id(self,cr,uid,ids,riq,context=None):
         if not riq:
             riq = '2000-01-01'
         riq_sp = riq.split('-')
         myear=riq_sp[1]+'/'+riq_sp[0]
-        cr.execute('select name from account_period where state=\'draft\' and code=\''+myear+'\';')
-        if len(cr.fetchall())>0:
-            return True
+        cr.execute('select id,name from account_period where state=\'draft\' and code=\''+myear+'\';')
+        rt_set = cr.fetchone()
+        if rt_set:
+            return {'value':{'period_id':rt_set[0]}}
         else:
             warning = {
                 'title': _('Warning!'),
-                'message' : _(u'当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!')
+                'message' : _(myear+u'当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!')
                 }
-            #raise osv.except_osv(_('Error'),_('会计期间已关闭，请重新选择日期'))
             value = {
                 'riq':False
                 }
@@ -422,53 +430,60 @@ class xz_gdagongdan(osv.osv):
             ybcs1 = ybcs_obj.read(cr,uid,id1,['zhi'])
             jjdg = float(ybcs1[0]['zhi']) 
         gongz = jjdg*shul
-        warning = {
-                   'title':_('Warning'),
-                   'message':_(u'数量太大了，如果有需要，请联系管理员寻求帮助!')
-                   }
         value = {
                  'gongz':gongz
                  }
-        if float(shul)>15:
-            return {'value':value,'warning':warning}
+        return {'value':value}
+        
+class xz_chuqgs(osv.osv):
+    STATE_SELECTION = [
+    ('draft', u'待结算'),
+    ('done', u'已关闭')
+    ]              
+    _name = 'xz.chuqgs'
+    _description = u'出勤工时'
+    _columns = {
+           'name': fields.char(u'编号', size=64, required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'period_id' : fields.many2one('account.period',u'会计期间',domain="[('state','=','draft'),('special','=',False)]", required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'group_id' : fields.many2one('xz.groups',u'组', required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'employee_id' : fields.many2one('hr.employee',u'员工',domain="[('id','in',gdomain)]",required=True, readonly=True,states={'draft': [('readonly', False)]}),
+           'shul' : fields.float(u'数量(小时)',required=True,readonly=True,states={'draft': [('readonly', False)]}),
+           'beiz' : fields.text(u'备注/说明', readonly=True,states={'draft': [('readonly', False)]}),
+           'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
+           'gdomain':fields.text(u'gdomain')
+          }
+    def _get_default_period_id(self,cr,uid,ids):
+        riq_sp = datetime.datetime.strftime(datetime.date.today(),'%m/%Y/%d')
+        myear=riq_sp[:7]
+        cr.execute('select id from account_period where state = \'draft\' and code = \''+myear+'\';')
+        period_id=cr.fetchone()
+        if not period_id:
+            return False
         else:
-            return {'value':value}
- 
-#----------------------------------------------------------------#   
-#                       其它类                                                                                               #
-#----------------------------------------------------------------#
-
-
+            return period_id[0]
+         
+    _defaults = {
+        'name': lambda x, y, z, c: x.pool.get('ir.sequence').get(y, z, 'xz.chuqgs') or '/', 
+        'shul':0.0,
+        'period_id':_get_default_period_id,
+        'state':lambda *a:'draft'
+    }
+    _sql_constraints = [
+        ('name','unique(name)',u'名称不能重复'),
+        ('period_id_group_id_employee_id', 'unique(period_id,group_id,employee_id)', u'员工在选择的会计期间存在重复')
+    ]
     
-#-------------------------------------------对象定义的完整属性说明-----------------------------------------------------------------
-#
-#_auto：是否自动创建对象对应的Table，缺省值为: True,
-#　　当安装或升级模块时，OpenERP会自动在数据库中为模块中定义的每个对象创建相应的Table,
-#　　当这个属性设为False时，OpenERP不会自动创建Table，这通常表示数据库表已经存在，
-#　　例如，当对象是从数据库视图（View）中读取数据时，通常设为False,当_auto的值为False时，
-#　　OE不会自动在数据库中创建相应的表，开发者可以在对应类的init()方法中定义表或视图的SQL。
-#_name：对象的唯一标识符，必须是全局唯一,
-#　　这个标识符用于存取对象，其格式通常是 ModuleName.ClassName,
-#　　对应的，系统会字段创建数据库表 ModuleName_ClassName。
-#　　当使用_inherit时可以与被继承的类的_name一致，_name一致表示不创建新的数据库表，而直接在原表上修改
-#_descript：对象说明性文字，任意文字。
-#_log_access：是否自动在对应的数据表中增加create_uid, create_date, write_uid, write_date
-#　　四个字段，缺省值为True，即字段增加,这四个字段分布记录record的创建人，
-#　　创建日期，修改人，修改日期。这四个字段值可以 用对象的方法（perm_read）读取。
-#_constraints: 定义于对象上的约束（constraints），通常是定义一个检查函数。
-#　　用法：_constraints = [(method,'error message',list_of_field_names),] 
-#_defaults: 定义字段的缺省值。当创建一条新记录（record or resource）时，记录中各字段的缺省值在此定义。
-#　　用法：_defaults = {'field_name':function,}
-#_order: 定义search()和read()方法的结果记录的排序规则，和SQL语句中的order 类似，缺省值是id,即按id升序排序。
-#_rec_name: 标识record name的字段。缺省情况（name_get没被重载的话）方法name_get()返回本字段值。_rec_name通常用于记录的显示，
-#　　例如，销售订单中包含业务伙伴，当在销售订单上显示业务伙伴时，系统缺省的是显示业务伙伴记录的_rec_name。
-#_sequence: 数据库表的id字段的序列采集器，缺省值为: None。OpenERP创建数据库表时，会自动增加id字段作为主键，并自动为该表创建一个序列
-#　　（名字通常是“表名_id_seq”）作为id字段值的采集器。如果想使用数据库中已有的序列器，则在此处定义序列器名。
-#_sql: _auto为True时，可以在这里定义创建数据库表的SQL语句。不过5.0以后好像不支持了，不建议使用。
-#_sql_constraints: 定义于对象上的约束（constraints），和SQL文中的约束类似，用法：_sql_constraints =
-#　　 [('code_company_uniq', 'unique (code,company_id)', 'The code of the account must be unique per company !'), ]
-#_table: 待创建的数据库表名，缺省值是和_name一样，只是将.替换成_
-#_inherits,_inherit: _inherits和_inherit都用于对象的继承。
-#
-######################################################################################################################################
-
+    def on_change_group_id(self,cr,uid,ids,group_id,context=None):
+        if not group_id:
+            return {'value':{'gdomain':False,'employee_id':False}}
+        else:
+            cr.execute('select id,name_related as name from hr_employee where id in (select eid from xz_groups_hr_employee where gid='+str(group_id)+');')
+            tmp_list=cr.fetchall()
+            if not tmp_list:
+                return {'value':{'gdomain':False,'employee_id':False}}
+            else:
+                rt_list=[]
+                for item in tmp_list:
+                    rt_list.append(item[0])
+                return {'value':{'gdomain':rt_list,'employee_id':False}} 
+           

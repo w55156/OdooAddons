@@ -47,12 +47,17 @@
         <field name="name">组大工单</field>
         <field name="code">xz.gdagongdan</field>
     </record>
+    <record id="chuqinggongshitype" model="ir.sequence.type">
+        <field name="name">出勤工时</field>
+        <field name="code">xz.chuqgs</field>
+    </record>
     <!--序列  -->
     <record id="jijiajijiandan" model="ir.sequence">
         <field name="name">计件单</field>
         <field name="code">xz.baogongdan</field>
         <field name="active">True</field>
         <field name="prefix">BGD/</field>
+        <field name="padding">7</field>
         <field name="implementation">standard</field>
     </record>
     <record id="jijiadagongdan" model="ir.sequence">
@@ -60,6 +65,7 @@
         <field name="code">xz.dagongdan</field>
         <field name="active">True</field>
         <field name="prefix">DGD/</field>
+        <field name="padding">7</field>
         <field name="implementation">standard</field>
     </record>
         <record id="zhujijiandan" model="ir.sequence">
@@ -67,6 +73,7 @@
         <field name="code">xz.gbaogongdan</field>
         <field name="active">True</field>
         <field name="prefix">GBGD/</field>
+        <field name="padding">7</field>
         <field name="implementation">standard</field>
     </record>
     <record id="zhudagongdan" model="ir.sequence">
@@ -74,7 +81,102 @@
         <field name="code">xz.gdagongdan</field>
         <field name="active">True</field>
         <field name="prefix">GDGD/</field>
+        <field name="padding">7</field>
         <field name="implementation">standard</field>
+    </record>
+    <record id="chuqinggongshi" model="ir.sequence">
+        <field name="name">出勤工时</field>
+        <field name="code">xz.chuqgs</field>
+        <field name="active">True</field>
+        <field name="prefix">CQGS/</field>
+        <field name="padding">7</field>
+        <field name="implementation">standard</field>
+    </record>
+    <!-- 以下为测试数据，系统上线后删除 -->
+    <!--添加工资组  -->
+    <record id="xz_groups_1" model="xz.groups">
+        <field name="name">后序组装一组</field>
+    </record>
+    <record id="xz_groups_2" model="xz.groups">
+        <field name="name">后序组装二组</field>
+    </record>
+    <record id="xz_groups_3" model="xz.groups">
+        <field name="name">后序组装三组</field>
+    </record>
+    <record id="xz_groups_4" model="xz.groups">
+        <field name="name">后序组装四组</field>
+    </record>
+    <record id="xz_groups_5" model="xz.groups">
+        <field name="name">后序装焊接组</field>
+    </record>
+    <!--添加员工  -->
+    <record id="hr_employee_1" model="hr.employee">
+        <field name="name">孙玉果</field>
+    </record>
+    <record id="hr_employee_2" model="hr.employee">
+        <field name="name">王威A</field>
+    </record>
+    <record id="hr_employee_3" model="hr.employee">
+        <field name="name">郭俊雷</field>
+    </record>
+    <record id="hr_employee_4" model="hr.employee">
+        <field name="name">李启鹏</field>
+    </record>
+    <record id="hr_employee_5" model="hr.employee">
+        <field name="name">王峰</field>
+    </record>
+    <record id="hr_employee_6" model="hr.employee">
+        <field name="name">陈春武</field>
+    </record>
+    <record id="hr_employee_7" model="hr.employee">
+        <field name="name">邓春旭</field>
+    </record>
+    <record id="hr_employee_8" model="hr.employee">
+        <field name="name">姚宁</field>
+    </record>
+    <record id="hr_employee_9" model="hr.employee">
+        <field name="name">赵刚</field>
+    </record>
+    <!--添加产品  -->
+    <record id="product_product_1" model="product.product">
+            <field name="name">1A1901-00-10</field>
+            <field name="default_code">1A1901-00-10</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id" ref="product.product_category_all"/>
+    </record>
+    <record id="product_product_2" model="product.product">
+            <field name="name">10239R-00-10(5604)</field>
+            <field name="default_code">10239R-00-10(5604)</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id" ref="product.product_category_all"/>
+    </record>
+    <record id="product_product_3" model="product.product">
+            <field name="name">1A2101-00-10(7766)</field>
+            <field name="default_code">1A2101-00-10(7766)</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id" ref="product.product_category_all"/>
+    </record>
+    <record id="product_product_4" model="product.product">
+            <field name="name">1A3012-00-01（双工位）</field>
+            <field name="default_code">1A3012-00-01</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id" ref="product.product_category_all"/>
+    </record>
+    <record id="product_product_5" model="product.product">
+            <field name="name">10PIEVP01-01-02</field>
+            <field name="default_code">10PIEVP01-01-02</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id" ref="product.product_category_all"/>
     </record>
   </data>
 </openerp>

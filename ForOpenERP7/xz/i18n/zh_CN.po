@@ -1,0 +1,633 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* xz
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20140804-231303\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 08:37+0000\n"
+"PO-Revision-Date: 2014-10-20 08:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_gzdetail2_form
+msgid "计件工资明细"
+msgstr "计件工资明细"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_chuqgs_form
+msgid "出勤工时(组)"
+msgstr "出勤工时(组)"
+
+#. module: xz
+#: model:ir.model,name:xz.model_xz_gzavg
+msgid "计件组平均工资中间表"
+msgstr "计件组平均工资中间表"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_jiesuan
+#: model:ir.ui.menu,name:xz.menu_generate_xz_jiesuan
+#: view:xz.jiesuan:0
+msgid "月度结算"
+msgstr "月度结算"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: field:xz.baogongdan,yuang:0
+#: field:xz.chuqgs,employee_id:0
+#: view:xz.dagongdan:0
+#: field:xz.dagongdan,yuang:0
+#: view:xz.groups:0
+#: field:xz.groups,employees:0
+#: field:xz.gzdetail,employee_id:0
+#: field:xz.gzdetail2,employee_id:0
+#: field:xz.gzdetail3,employee_id:0
+msgid "员工"
+msgstr "员工"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_yibcs_form
+#: model:ir.model,name:xz.model_xz_yibcs
+#: model:ir.ui.menu,name:xz.menu_xz_yibcs_form
+msgid "一般参数"
+msgstr "一般参数"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_groups_form
+#: model:ir.model,name:xz.model_xz_groups
+msgid "集体工资组"
+msgstr "集体工资组"
+
+#. module: xz
+#: view:xz.gzdetail3:0
+msgid "xz_gzdetail3"
+msgstr "xz_gzdetail3"
+
+#. module: xz
+#: view:xz.gzdetail2:0
+msgid "xz_gzdetail2"
+msgstr "xz_gzdetail2"
+
+#. module: xz
+#: sql_constraint:xz.gongx:0
+#: sql_constraint:xz.jiagsb:0
+msgid "名称不允许重复"
+msgstr "名称不允许重复"
+
+#. module: xz
+#: field:xz.baogongdan,beiz:0
+#: field:xz.chuqgs,beiz:0
+#: field:xz.dagongdan,beiz:0
+#: field:xz.gbaogongdan,beiz:0
+#: field:xz.gdagongdan,beiz:0
+msgid "备注/说明"
+msgstr "备注/说明"
+
+#. module: xz
+#: model:product.template,name:xz.product_product_5_product_template
+msgid "10PIEVP01-01-02"
+msgstr "10PIEVP01-01-02"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_groups_form
+msgid "工资组"
+msgstr "工资组"
+
+#. module: xz
+#: model:res.groups,name:xz.group_xz_manager
+msgid "管理员"
+msgstr "管理员"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gzavg_form
+#: model:ir.ui.menu,name:xz.menu_xz_gzavg_form
+msgid "计件组平均工资"
+msgstr "计件组平均工资"
+
+#. module: xz
+#: model:product.template,name:xz.product_product_3_product_template
+msgid "1A2101-00-10(7766)"
+msgstr "1A2101-00-10(7766)"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: selection:xz.baogongdan,state:0
+#: view:xz.chuqgs:0
+#: selection:xz.chuqgs,state:0
+#: view:xz.dagongdan:0
+#: selection:xz.dagongdan,state:0
+#: view:xz.gbaogongdan:0
+#: selection:xz.gbaogongdan,state:0
+#: view:xz.gdagongdan:0
+#: selection:xz.gdagongdan,state:0
+msgid "已关闭"
+msgstr "已关闭"
+
+#. module: xz
+#: view:xz.jiesuan:0
+msgid "是否真的要对当前选择的会计期间进行结算，此操作执行后将不可撤消！"
+msgstr "是否真的要对当前选择的会计期间进行结算，此操作执行后将不可撤消！"
+
+#. module: xz
+#: field:xz.chuqgs,gdomain:0
+msgid "gdomain"
+msgstr "gdomain"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: selection:xz.baogongdan,state:0
+#: view:xz.chuqgs:0
+#: selection:xz.chuqgs,state:0
+#: view:xz.dagongdan:0
+#: selection:xz.dagongdan,state:0
+#: view:xz.gbaogongdan:0
+#: selection:xz.gbaogongdan,state:0
+#: view:xz.gdagongdan:0
+#: selection:xz.gdagongdan,state:0
+msgid "待结算"
+msgstr "待结算"
+
+#. module: xz
+#: view:xz.baogongdan:0
+msgid "xz_baogongdan"
+msgstr "xz_baogongdan"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_dagongdan_form
+#: model:ir.model,name:xz.model_xz_dagongdan
+#: model:ir.ui.menu,name:xz.menu_xz_dagongdan_form
+msgid "大工单"
+msgstr "大工单"
+
+#. module: xz
+#: view:xz.chuqgs:0
+msgid "xz_chuqgs"
+msgstr "xz_chuqgs"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gzdetail_form
+msgid "工资明细中间表"
+msgstr "工资明细中间表"
+
+#. module: xz
+#: field:xz.baogongdan,chanp:0
+#: field:xz.gbaogongdan,chanp:0
+#: field:xz.gongx,chanp:0
+msgid "产品"
+msgstr "产品"
+
+#. module: xz
+#: field:xz.yibcs,bianm:0
+msgid "编码"
+msgstr "编码"
+
+#. module: xz
+#: field:xz.baogongdan,gongz:0
+#: field:xz.dagongdan,gongz:0
+#: field:xz.gbaogongdan,gongz:0
+#: field:xz.gdagongdan,gongz:0
+#: field:xz.gzdetail,gongz:0
+#: field:xz.gzdetail2,gongz:0
+#: field:xz.gzdetail3,gongz:0
+msgid "工资"
+msgstr "工资"
+
+#. module: xz
+#: field:xz.gongx,banc:0
+msgid "班产(件/个)"
+msgstr "班产(件/个)"
+
+#. module: xz
+#: code:addons\xz\xz.py:279
+#, python-format
+msgid "Warning"
+msgstr "Warning"
+
+#. module: xz
+#: code:addons\xz\xz.py:157
+#: code:addons\xz\xz.py:170
+#: code:addons\xz\xz.py:250
+#: code:addons\xz\xz.py:263
+#: code:addons\xz\xz.py:335
+#: code:addons\xz\xz.py:416
+#, python-format
+msgid "Warning!"
+msgstr "Warning!"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_jiagsb_form
+#: model:ir.model,name:xz.model_xz_jiagsb
+#: model:ir.ui.menu,name:xz.menu_xz_jiagsb_form
+#: field:xz.gongx,jiagsb:0
+msgid "加工设备"
+msgstr "加工设备"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.left_menu_form
+msgid "单据"
+msgstr "单据"
+
+#. module: xz
+#: code:addons\xz\xz.py:158
+#: code:addons\xz\xz.py:251
+#, python-format
+msgid "没有选择日期，请重新选择，如果有需要，请联系管理员寻求帮助!"
+msgstr "没有选择日期，请重新选择，如果有需要，请联系管理员寻求帮助!"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_gbaogongdan_form
+msgid "计件单(组)"
+msgstr "计件单(组)"
+
+#. module: xz
+#. openerp-web
+#: code:addons\xz\static\src\xml\base.xml:9
+#, python-format
+msgid "Preferences"
+msgstr "Preferences"
+
+#. module: xz
+#: view:xz.jiagsb:0
+msgid "xz_jiagsb"
+msgstr "xz_jiagsb"
+
+#. module: xz
+#: field:xz.baogongdan,shul:0
+#: field:xz.gbaogongdan,shul:0
+msgid "数量"
+msgstr "数量"
+
+#. module: xz
+#: view:xz.gzavg:0
+#: field:xz.gzavg,fm_type:0
+#: view:xz.gzdetail:0
+#: field:xz.gzdetail,fm_type:0
+#: view:xz.gzdetail2:0
+#: field:xz.gzdetail2,fm_type:0
+msgid "类型"
+msgstr "类型"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gongx_form
+#: model:ir.model,name:xz.model_xz_gongx
+#: model:ir.ui.menu,name:xz.menu_xz_gongx_form
+#: field:xz.baogongdan,gongx:0
+#: field:xz.gbaogongdan,gongx:0
+msgid "工序"
+msgstr "工序"
+
+#. module: xz
+#: field:xz.baogongdan,riq:0
+#: field:xz.dagongdan,riq:0
+#: field:xz.gbaogongdan,riq:0
+#: field:xz.gdagongdan,riq:0
+msgid "日期"
+msgstr "日期"
+
+#. module: xz
+#: model:ir.model,name:xz.model_xz_jiesuan
+msgid "工资月度结算"
+msgstr "工资月度结算"
+
+#. module: xz
+#: field:xz.gongx,name:0
+#: field:xz.groups,name:0
+#: field:xz.jiagsb,name:0
+#: field:xz.yibcs,name:0
+msgid "名称"
+msgstr "名称"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gdagongdan_form
+#: model:ir.model,name:xz.model_xz_gdagongdan
+msgid "组大工单"
+msgstr "组大工单"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.left_menu_xinzi
+#: model:ir.ui.menu,name:xz.top_menu_xinzi
+msgid "薪资"
+msgstr "薪资"
+
+#. module: xz
+#: sql_constraint:xz.baogongdan:0
+#: sql_constraint:xz.dagongdan:0
+#: sql_constraint:xz.gbaogongdan:0
+#: sql_constraint:xz.gdagongdan:0
+msgid "特定的日期不能重复报工"
+msgstr "特定的日期不能重复报工"
+
+#. module: xz
+#: model:ir.model,name:xz.model_xz_gzdetail
+msgid "工资明细 中间表"
+msgstr "工资明细 中间表"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_gdagongdan_form
+msgid "大工单(组)"
+msgstr "大工单(组)"
+
+#. module: xz
+#: field:xz.gongx,dinge:0
+msgid "定额(RMB元)"
+msgstr "定额(RMB元)"
+
+#. module: xz
+#: view:xz.jiesuan:0
+msgid "确定"
+msgstr "确定"
+
+#. module: xz
+#: field:xz.gongx,xianjgsj:0
+msgid "现加工时间(秒)"
+msgstr "现加工时间(秒)"
+
+#. module: xz
+#: view:xz.chuqgs:0
+#: field:xz.chuqgs,group_id:0
+#: view:xz.gbaogongdan:0
+#: field:xz.gbaogongdan,group_id:0
+#: view:xz.gdagongdan:0
+#: field:xz.gdagongdan,group_id:0
+#: view:xz.gzavg:0
+#: field:xz.gzavg,group_id:0
+#: view:xz.gzdetail:0
+#: field:xz.gzdetail,group_id:0
+msgid "组"
+msgstr "组"
+
+#. module: xz
+#: model:product.template,name:xz.product_product_1_product_template
+msgid "1A1901-00-10"
+msgstr "1A1901-00-10"
+
+#. module: xz
+#: view:xz.groups:0
+msgid "xz_groups"
+msgstr "xz_groups"
+
+#. module: xz
+#: view:xz.jiesuan:0
+msgid "or"
+msgstr "or"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.left_menu_set
+msgid "配置"
+msgstr "配置"
+
+#. module: xz
+#: code:addons\xz\xz.py:280
+#, python-format
+msgid "数量太大了，如果有需要，请联系管理员寻求帮助!"
+msgstr "数量太大了，如果有需要，请联系管理员寻求帮助!"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.menu_xz_gzdetail_form
+msgid "集体明细中间表"
+msgstr "集体明细中间表"
+
+#. module: xz
+#: field:xz.gzavg,fm_type_name:0
+#: field:xz.gzdetail,fm_type_name:0
+#: field:xz.gzdetail2,fm_type_name:0
+msgid "类型名称"
+msgstr "类型名称"
+
+#. module: xz
+#: code:addons\xz\xz.py:171
+#, python-format
+msgid " 选择的会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助! "
+msgstr " 选择的会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助! "
+
+#. module: xz
+#: view:xz.gongx:0
+msgid "xz_gongx"
+msgstr "xz_gongx"
+
+#. module: xz
+#: field:xz.chuqgs,shul:0
+#: field:xz.dagongdan,shul:0
+#: field:xz.gdagongdan,shul:0
+msgid "数量(小时)"
+msgstr "数量(小时)"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_chuqgs_form
+#: model:ir.model,name:xz.model_xz_chuqgs
+msgid "出勤工时"
+msgstr "出勤工时"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gbaogongdan_form
+#: model:ir.model,name:xz.model_xz_gbaogongdan
+msgid "组计件单"
+msgstr "组计件单"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: field:xz.baogongdan,period_id:0
+#: view:xz.chuqgs:0
+#: field:xz.chuqgs,period_id:0
+#: view:xz.dagongdan:0
+#: field:xz.dagongdan,period_id:0
+#: view:xz.gbaogongdan:0
+#: field:xz.gbaogongdan,period_id:0
+#: view:xz.gdagongdan:0
+#: field:xz.gdagongdan,period_id:0
+#: view:xz.gzavg:0
+#: field:xz.gzavg,period_id:0
+#: view:xz.gzdetail:0
+#: field:xz.gzdetail,period_id:0
+#: view:xz.gzdetail2:0
+#: field:xz.gzdetail2,period_id:0
+#: view:xz.gzdetail3:0
+#: field:xz.gzdetail3,period_id:0
+#: field:xz.jiesuan,period_id:0
+msgid "会计期间"
+msgstr "会计期间"
+
+#. module: xz
+#: field:xz.yibcs,zhi:0
+msgid "值"
+msgstr "值"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: field:xz.baogongdan,state:0
+#: view:xz.chuqgs:0
+#: field:xz.chuqgs,state:0
+#: view:xz.dagongdan:0
+#: field:xz.dagongdan,state:0
+#: view:xz.gbaogongdan:0
+#: field:xz.gbaogongdan,state:0
+#: view:xz.gdagongdan:0
+#: field:xz.gdagongdan,state:0
+msgid "状态"
+msgstr "状态"
+
+#. module: xz
+#: model:product.template,name:xz.product_product_2_product_template
+msgid "10239R-00-10(5604)"
+msgstr "10239R-00-10(5604)"
+
+#. module: xz
+#: view:xz.gzdetail:0
+msgid "xz_gzdetail"
+msgstr "xz_gzdetail"
+
+#. module: xz
+#: model:ir.ui.menu,name:xz.left_menu_report
+msgid "报表"
+msgstr "报表"
+
+#. module: xz
+#: model:ir.model,name:xz.model_xz_baogongdan
+#: model:ir.ui.menu,name:xz.menu_xz_baogongdan_form
+msgid "计件单"
+msgstr "计件单"
+
+#. module: xz
+#: sql_constraint:xz.yibcs:0
+msgid "编码不能重复"
+msgstr "编码不能重复"
+
+#. module: xz
+#: sql_constraint:xz.gongx:0
+msgid "当前产品已存在同样的加工设备的工序"
+msgstr "当前产品已存在同样的加工设备的工序"
+
+#. module: xz
+#: sql_constraint:xz.baogongdan:0
+#: sql_constraint:xz.chuqgs:0
+#: sql_constraint:xz.dagongdan:0
+#: sql_constraint:xz.gbaogongdan:0
+#: sql_constraint:xz.gdagongdan:0
+#: sql_constraint:xz.groups:0
+#: sql_constraint:xz.yibcs:0
+msgid "名称不能重复"
+msgstr "名称不能重复"
+
+#. module: xz
+#: code:addons\xz\xz.py:264
+#, python-format
+msgid " 会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助! "
+msgstr " 会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助! "
+
+#. module: xz
+#: sql_constraint:xz.chuqgs:0
+msgid "员工在选择的会计期间存在重复"
+msgstr "员工在选择的会计期间存在重复"
+
+#. module: xz
+#: view:xz.dagongdan:0
+msgid "xz_dagongdan"
+msgstr "xz_dagongdan"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gzdetail2_form
+#: model:ir.model,name:xz.model_xz_gzdetail2
+msgid "月度计件工资明细"
+msgstr "月度计件工资明细"
+
+#. module: xz
+#: view:xz.gdagongdan:0
+msgid "xz_gdagongdan"
+msgstr "xz_gdagongdan"
+
+#. module: xz
+#: view:xz.baogongdan:0
+#: view:xz.chuqgs:0
+#: view:xz.dagongdan:0
+#: view:xz.gbaogongdan:0
+#: view:xz.gdagongdan:0
+#: view:xz.gzavg:0
+#: view:xz.gzdetail:0
+#: view:xz.gzdetail2:0
+#: view:xz.gzdetail3:0
+msgid "分组"
+msgstr "分组"
+
+#. module: xz
+#: code:addons\xz\xz.py:336
+#: code:addons\xz\xz.py:417
+#, python-format
+msgid "当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!"
+msgstr "当前会计期间已关闭，请重新选择日期，如果有需要，请联系管理员寻求帮助!"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_baogongdan_form
+msgid "报工单"
+msgstr "报工单"
+
+#. module: xz
+#: model:product.template,name:xz.product_product_4_product_template
+msgid "1A3012-00-01（双工位）"
+msgstr "1A3012-00-01（双工位）"
+
+#. module: xz
+#: view:xz.gbaogongdan:0
+msgid "xz_gbaogongdan"
+msgstr "xz_gbaogongdan"
+
+#. module: xz
+#: field:xz.gzavg,gz_avg:0
+msgid "平均工资"
+msgstr "平均工资"
+
+#. module: xz
+#: view:xz.yibcs:0
+msgid "xz_yibcs"
+msgstr "xz_yibcs"
+
+#. module: xz
+#. openerp-web
+#: code:addons\xz\static\src\xml\base.xml:11
+#, python-format
+msgid "About"
+msgstr "About"
+
+#. module: xz
+#: view:xz.gzavg:0
+msgid "xz_gzavg"
+msgstr "xz_gzavg"
+
+#. module: xz
+#: view:xz.jiesuan:0
+msgid "取消"
+msgstr "取消"
+
+#. module: xz
+#: model:res.groups,name:xz.group_xz_user
+msgid "用户"
+msgstr "用户"
+
+#. module: xz
+#. openerp-web
+#: code:addons\xz\static\src\xml\base.xml:13
+#, python-format
+msgid "Log out"
+msgstr "Log out"
+
+#. module: xz
+#: field:xz.baogongdan,name:0
+#: field:xz.chuqgs,name:0
+#: field:xz.dagongdan,name:0
+#: field:xz.gbaogongdan,name:0
+#: field:xz.gdagongdan,name:0
+msgid "编号"
+msgstr "编号"
+
+#. module: xz
+#: model:ir.actions.act_window,name:xz.action_xz_gzdetail3_form
+#: model:ir.model,name:xz.model_xz_gzdetail3
+#: model:ir.ui.menu,name:xz.menu_xz_gzdetail3_form
+msgid "计件工资总表"
+msgstr "计件工资总表"
+

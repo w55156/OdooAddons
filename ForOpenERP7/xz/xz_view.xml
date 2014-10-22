@@ -7,6 +7,7 @@
     <menuitem name="薪资" id="left_menu_xinzi" parent="top_menu_xinzi" />
     <menuitem name="单据" id="left_menu_form" parent="left_menu_xinzi" />
     <menuitem name="配置" id="left_menu_set" parent="left_menu_xinzi" />
+    <menuitem name="报表" id="left_menu_report" parent="left_menu_xinzi" />
     
     <!-- 集体工资组 -->
     <!-- tree view -->
@@ -233,8 +234,14 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search string="xz_baogongdan">
+          <field name="yuang" />
           <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
           <filter string="已关闭" name="done" domain="[('state','=','done')]" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}"/>
+            <filter string="员工" domain="[]" context="{'group_by':'yuang'}"/>
+            <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
+          </group>
         </search>
       </field>
     </record>
@@ -244,9 +251,9 @@
       <field name="model">xz.baogongdan</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="xz_baogongdan">
+        <tree string="xz_baogongdan" colors="blue:state == 'draft';gray:state == 'done'" >
           <field name="name" select="1" invisible="0" />
-          <field name="period_code" />
+          <field name="period_id" />
           <field name="riq" select="1" invisible="0" />
           <field name="chanp" select="1" invisible="0" />
           <field name="gongx" select="1" invisible="0" />
@@ -266,7 +273,7 @@
       <field name="arch" type="xml">
         <form string="xz_baogongdan" version="7.0">
           <header>
-            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" colors="blue:state == 'draft';gray:state == 'done'" />
           </header>
           <sheet>
             <group>
@@ -275,7 +282,7 @@
                 <field name="riq" on_change="onchange_yuang(riq)" />
               </group>
               <group>
-                <field name="period_code" invisible="1" />
+                <field name="period_id" invisible="1" />
                 <field name="yuang" on_change="onchange_yuang(riq)" />
               </group>
             </group>
@@ -300,6 +307,8 @@
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="view_xz_baogongdan_tree"/>
       <field name="search_view_id" ref="view_xz_baogongdan_search"/>
+      <field name="context">{'search_default_draft':1}</field>
+      <field name="domain">[]</field>
     </record>
     
     <!-- 大工单 -->
@@ -310,10 +319,12 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search string="xz_dagongdan">
-          <field name="name" filter_domain="['|',('name','ilike',self),('yuang','ilike',self)]" />
+          <field name="yuang" />
           <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
           <filter string="已关闭" name="done" domain="[('state','=','done')]" />
           <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}"/>
+            <filter string="员工" domain="[]" context="{'group_by':'yuang'}"/>
             <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
           </group>
         </search>
@@ -327,7 +338,7 @@
       <field name="arch" type="xml">
         <tree string="xz_dagongdan" colors="blue:state == 'draft';gray:state == 'done'" >
           <field name="name" />
-          <field name="period_code" />
+          <field name="period_id" />
           <field name="riq" />
           <field name="yuang" />
           <field name="shul" />
@@ -350,18 +361,18 @@
           <sheet>
             <group>
               <group>
-                <field name="name" class="xz_field_readonly" />
+                <field name="name" invisible="1" />
                 <field name="riq" on_change="onchange_yuang(riq)" />
               </group>
               <group>
-                <field name="period_code" class="oe_form_readonly" />
+                <field name="period_id" invisible="1" />
                 <field name="yuang" on_change="onchange_yuang(riq)" />
               </group>
             </group>
             <group>
               <field name="shul" on_change="onchange_shul(shul)" />
-              <field name="gongz" class="oe_form_readonly" />
-              <field name="state" class="oe_form_readonly" />
+              <field name="gongz"  invisible="1" />
+              <field name="state"  invisible="1" />
               <field name="beiz"/>
             </group>
           </sheet>
@@ -382,18 +393,37 @@
     </record>
          
     <!-- 组计件单 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gbaogongdan_search">
+      <field name="name">xz_gbaogongdan.search</field>
+      <field name="model">xz.gbaogongdan</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gbaogongdan">
+          <field name="group_id" />
+          <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
+          <filter string="已关闭" name="done" domain="[('state','=','done')]" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}"/>
+            <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
+            <filter string="组" domain="[]" context="{'group_by':'group_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
     <!-- tree view -->
     <record model="ir.ui.view" id="view_xz_gbaogongdan_tree">
       <field name="name">xz_gbaogongdan.tree</field>
       <field name="model">xz.gbaogongdan</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="xz_gbaogongdan">
+        <tree string="xz_gbaogongdan" colors="blue:state == 'draft';gray:state == 'done'" >
           <field name="name" />
+          <field name="period_id" />
           <field name="riq" />
           <field name="chanp" />
           <field name="gongx" />
-          <field name="group" />
+          <field name="group_id" />
           <field name="shul" />
           <field name="gongz" />
           <field name="beiz" />
@@ -409,24 +439,25 @@
       <field name="arch" type="xml">
         <form string="xz_gbaogongdan" version="7.0">
           <header>
-            <field name="state" widget="statusbar" statusbar_visible="draft,done" />  
+            <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue","done":"blue"}' />  
           </header>
           <sheet>
             <group>
               <group>
-                <field name="name"/>
-                <field name="group" on_change="onchange_group(riq)" />
+                <field name="name" invisible="1" />
+                <field name="riq" on_change="onchange_group_id(riq)" />
               </group>
               <group>
-                <field name="riq" on_change="onchange_group(riq)" />
-                <field name="chanp" on_change="product_id_change(chanp)" />
+                <field name="period_id" invisible="1" />
+                <field name="group_id" on_change="onchange_group_id(riq)" />
               </group>
             </group>
             <group>
+              <field name="chanp" on_change="product_id_change(chanp)" />
               <field name="gongx" invisible="0" on_change="gongx_id_change(gongx,shul)" domain="[('chanp','=',chanp)]" context="{'chanp': chanp}" />
               <field name="shul" invisible="0" on_change="gongx_id_change(gongx,shul)" />
-              <field name="gongz" invisible="0" />
-              <field name="state" invisible="0" />
+              <field name="gongz" invisible="1" />
+              <field name="state" invisible="1" />
               <field name="beiz" invisible="0" />
             </group>
           </sheet>
@@ -441,19 +472,41 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="view_xz_gbaogongdan_tree"/>
+      <field name="search_view_id" ref="view_xz_gbaogongdan_search"/>
+      <field name="context">{'search_default_draft':1}</field>
+      <field name="domain">[]</field>
     </record>
     
     <!-- 组大工单 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gdagongdan_search">
+      <field name="name">xz_gdagongdan.search</field>
+      <field name="model">xz.gdagongdan</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gdagongdan">
+          <field name="group_id" />
+          <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
+          <filter string="已关闭" name="done" domain="[('state','=','done')]" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}"/>
+            <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
+            <filter string="组" domain="[]" context="{'group_by':'group_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
     <!-- tree view -->
     <record model="ir.ui.view" id="view_xz_gdagongdan_tree">
       <field name="name">xz_gdagongdan.tree</field>
       <field name="model">xz.gdagongdan</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="xz_gdagongdan">
+        <tree string="xz_gdagongdan" colors="blue:state == 'draft';gray:state == 'done'" >
           <field name="name" />
+          <field name="period_id" />
           <field name="riq" />
-          <field name="group" />
+          <field name="group_id" />
           <field name="shul" />
           <field name="gongz" />
           <field name="beiz" />
@@ -474,15 +527,16 @@
           <sheet>
             <group>
               <group>
-                <field name="name"/>
-                <field name="group" on_change="onchange_group(riq)" />
+                <field name="name" invisible="1" />
+                <field name="riq" on_change="onchange_group_id(riq)" />
               </group>
               <group>
-                <field name="riq" on_change="onchange_group(riq)" />
-                <field name="shul" on_change="onchange_shul(shul)" />
+                <field name="period_id" invisible="1" />
+                <field name="group_id" on_change="onchange_group_id(riq)" />
               </group>
             </group>
             <group>
+              <field name="shul" on_change="onchange_shul(shul)" />
               <field name="gongz" invisible="1" />
               <field name="state" invisible="1" />
               <field name="beiz"/>
@@ -499,13 +553,96 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="view_xz_gdagongdan_tree"/>
+      <field name="search_view_id" ref="view_xz_gdagongdan_search"/>
+      <field name="context">{'search_default_draft':1}</field>
+      <field name="domain">[]</field>
     </record>
     
+    <!-- 出勤工时 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_chuqgs_search">
+      <field name="name">xz_chuqgs.search</field>
+      <field name="model">xz.chuqgs</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_chuqgs">
+          <filter string="待结算" name="draft" domain="[('state','=','draft')]" />
+          <filter string="已关闭" name="done" domain="[('state','=','done')]" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}"/>
+            <filter string="状态" domain="[]" context="{'group_by':'state'}"/>
+            <filter string="组" domain="[]" context="{'group_by':'group_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_chuqgs_tree">
+      <field name="name">xz_chuqgs.tree</field>
+      <field name="model">xz.chuqgs</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_chuqgs" colors="blue:state == 'draft';gray:state == 'done'" >
+          <field name="name" />
+          <field name="period_id" />
+          <field name="group_id" />
+          <field name="employee_id" />
+          <field name="shul" />
+          <field name="beiz" />
+          <field name="state" />
+          <field name="gdomain" invisible="1" />
+        </tree>
+      </field>
+    </record>
+    <!-- form view -->
+    <record model="ir.ui.view" id="view_xz_chuqgs_form">
+      <field name="name">xz_chuqgs.form</field>
+      <field name="model">xz.chuqgs</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="xz_chuqgs" version="7.0">
+          <header>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="period_id" />
+                <field name="employee_id" />
+              </group>
+              <group>
+                <field name="group_id" on_change="on_change_group_id(group_id)" />
+                <field name="shul" />
+              </group>
+            </group>
+            <group>
+              <field name="beiz" />
+              <field name="gdomain" invisible="1" />
+              <field name="name" invisible="1" />
+              <field name="state" invisible="1" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_chuqgs_form">
+      <field name="name">出勤工时</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.chuqgs</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_xz_chuqgs_tree"/>
+      <field name="search_view_id" ref="view_xz_chuqgs_search"/>
+      <field name="context">{'search_default_draft':1}</field>
+      <field name="domain">[]</field>
+    </record>
+          
     <!-- menuitem form -->
     <menuitem name="计件单" id="menu_xz_baogongdan_form" parent="left_menu_form" action="action_xz_baogongdan_form"/>
     <menuitem name="大工单" id="menu_xz_dagongdan_form" parent="left_menu_form" action="action_xz_dagongdan_form"/>
     <menuitem name="计件单(组)" id="menu_xz_gbaogongdan_form" parent="left_menu_form" action="action_xz_gbaogongdan_form"/>
     <menuitem name="大工单(组)" id="menu_xz_gdagongdan_form" parent="left_menu_form" action="action_xz_gdagongdan_form"/>
+    <menuitem name="出勤工时(组)" id="menu_xz_chuqgs_form" parent="left_menu_form" action="action_xz_chuqgs_form"/>
     <!-- menuitem set -->
     <menuitem name="一般参数" id="menu_xz_yibcs_form" parent="left_menu_set" action="action_xz_yibcs_form"/>
     <menuitem name="加工设备" id="menu_xz_jiagsb_form" parent="left_menu_set" action="action_xz_jiagsb_form"/>

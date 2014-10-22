@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!-- 计件组平均工资 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gzavg_search">
+      <field name="name">xz_gzavg.search</field>
+      <field name="model">xz.gzavg</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gzavg" >
+          <field name="period_id" />
+          <field name="group_id" />
+          <field name="gz_avg" />
+          <field name="fm_type" />
+          <field name="fm_type_name" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}" />
+            <filter string="类型" domain="[]" context="{'group_by':'fm_type_name'}" />
+            <filter string="组" domain="[]" context="{'group_by':'group_id'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gzavg_tree">
+      <field name="name">xz_gzavg.tree</field>
+      <field name="model">xz.gzavg</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gzavg"  create="false" delete="false">
+          <field name="period_id" invisible="0" />
+          <field name="group_id" invisible="0" />
+          <field name="gz_avg" invisible="0" />
+          <field name="fm_type" invisible="1" />
+          <field name="fm_type_name" invisible="0" />
+        </tree>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gzavg_form">
+      <field name="name">计件组平均工资</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gzavg</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_xz_gzavg_tree"/>
+      <field name="search_view_id" ref="view_xz_gzavg_search" />
+    </record>
+    
+    <!-- 工资明细中间表 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gzdetail_search">
+      <field name="name">xz_gzdetail.search</field>
+      <field name="model">xz.gzdetail</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gzdetail" >
+          <field name="period_id" />
+          <field name="group_id" />
+          <field name="employee_id" />
+          <field name="gongz" />
+          <field name="fm_type" />
+          <field name="fm_type_name" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}" />
+            <filter string="类型" domain="[]" context="{'group_by':'fm_type_name'}" />
+            <filter string="组" domain="[]" context="{'group_by':'group_id'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gzdetail_tree">
+      <field name="name">xz_gzdetail.tree</field>
+      <field name="model">xz.gzdetail</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gzdetail"  create="false" delete="false">
+          <field name="period_id" />
+          <field name="employee_id" />
+          <field name="group_id" />
+          <field name="gongz" />
+          <field name="fm_type" invisible="1" />
+          <field name="fm_type_name" />
+        </tree>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gzdetail_form">
+      <field name="name">工资明细中间表</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gzdetail</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_xz_gzdetail_tree"/>
+      <field name="search_view_id" ref="view_xz_gzdetail_search" />
+    </record>
+    
+    <!-- 月度计件工资明细 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gzdetail2_search">
+      <field name="name">xz_gzdetail2.search</field>
+      <field name="model">xz.gzdetail2</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gzdetail2" >
+          <field name="period_id" />
+          <field name="employee_id" />
+          <field name="gongz" />
+          <field name="fm_type" />
+          <field name="fm_type_name" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}" />
+            <filter string="类型" domain="[]" context="{'group_by':'fm_type_name'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gzdetail2_tree">
+      <field name="name">xz_gzdetail2.tree</field>
+      <field name="model">xz.gzdetail2</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gzdetail2" create="false" delete="false">
+          <field name="period_id" />
+          <field name="employee_id" />
+          <field name="gongz" />
+          <field name="fm_type" invisible="1" />
+          <field name="fm_type_name" />
+        </tree>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gzdetail2_form">
+      <field name="name">月度计件工资明细</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gzdetail2</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_xz_gzdetail2_tree"/>
+      <field name="search_view_id" ref="view_xz_gzdetail2_search" />
+    </record>
+    
+    <!-- 计件工资总表 -->
+    <!-- Search View -->
+    <record model="ir.ui.view" id="view_xz_gzdetail3_search">
+      <field name="name">xz_gzdetail3.search</field>
+      <field name="model">xz.gzdetail3</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="xz_gzdetail3" >
+          <field name="period_id" />
+          <field name="employee_id" />
+          <field name="gongz" />
+          <group expand="0" string="分组">
+            <filter string="会计期间" domain="[]" context="{'group_by':'period_id'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- tree view -->
+    <record model="ir.ui.view" id="view_xz_gzdetail3_tree">
+      <field name="name">xz_gzdetail3.tree</field>
+      <field name="model">xz.gzdetail3</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="xz_gzdetail3" create="false" delete="false">
+          <field name="period_id" />
+          <field name="employee_id" />
+          <field name="gongz" />
+        </tree>
+      </field>
+    </record>
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="action_xz_gzdetail3_form">
+      <field name="name">计件工资总表</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">xz.gzdetail3</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_xz_gzdetail3_tree"/>
+      <field name="search_view_id" ref="view_xz_gzdetail3_search" />
+    </record>
+    
+    <!-- menuitem -->
+    <menuitem name="计件组平均工资" id="menu_xz_gzavg_form" parent="xz.left_menu_report" action="action_xz_gzavg_form"/>
+    <menuitem name="集体明细中间表" id="menu_xz_gzdetail_form" parent="xz.left_menu_report" action="action_xz_gzdetail_form"/>
+    <menuitem name="计件工资明细" id="menu_xz_gzdetail2_form" parent="xz.left_menu_report" action="action_xz_gzdetail2_form"/>
+    <menuitem name="计件工资总表" id="menu_xz_gzdetail3_form" parent="xz.left_menu_report" action="action_xz_gzdetail3_form"/>
+  </data>
+</openerp>

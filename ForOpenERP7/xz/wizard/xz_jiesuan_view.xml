@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_xz_jiesuan" model="ir.ui.view">
+            <field name="name">xz.jiesuan.form</field>
+            <field name="model">xz.jiesuan</field>
+            <field name="arch" type="xml">
+               <form string="月度结算" version="7.0">
+                    <group>
+                        <field name="period_id"/>
+                    </group>
+                    <footer>
+                        <button string="确定" name="action_generate" type="object" class="oe_highlight" confirm="是否真的要对当前选择的会计期间进行结算，此操作执行后将不可撤消！" />
+                        or
+                        <button string="取消" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_xz_jiesuan" model="ir.actions.act_window">
+            <field name="name">月度结算</field>
+            <field name="res_model">xz.jiesuan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_xz_jiesuan"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="月度结算" sequence="10" action="action_xz_jiesuan" id="menu_generate_xz_jiesuan" parent="xz.left_menu_form" />
+
+    </data>
+</openerp>
