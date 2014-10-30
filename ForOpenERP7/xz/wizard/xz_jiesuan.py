@@ -10,10 +10,19 @@ import time
 from openerp.osv import fields, osv
 
 class xz_jiesuan(osv.osv_memory):
+    def _period_id_get(self,cr,uid,context=None):
+        list_rt = []
+        if  uid != 1:
+            return list_rt
+        cr.execute('SELECT id,code FROM account_period WHERE state=\'draft\' AND special=\'f\' ORDER BY id DESC;')
+        list_rt = cr.fetchall()
+        return list_rt
+    
     _name = 'xz.jiesuan'
     _description = u'工资月度结算'
     _columns = {
-       'period_id': fields.many2one('account.period',u'会计期间',domain="[('state','=','draft'),('special','=',False)]",required=True),
+       #'period_id': fields.many2one('account.period',u'会计期间',domain="[('state','=','draft'),('special','=',False)]",required=True),
+       'period_id': fields.selection(_period_id_get,u'会计期间',required=True),
     }
     
     def _avg_dict_get(self,cr,period_id,fm_type):
@@ -115,7 +124,7 @@ class xz_jiesuan(osv.osv_memory):
             
     def action_generate(self, cr, uid, ids, context=None):
         data = self.read(cr, uid, ids, context=context)
-        period_id = data[0]['period_id'][0]
+        period_id = data[0].get('period_id','')
         #预处理
         self._action_before(cr,period_id)
         

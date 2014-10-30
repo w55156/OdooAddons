@@ -19,7 +19,16 @@
     </t>
     <!-- UserMenu.about -->
     <t t-extend="UserMenu.about">
-        <t t-jquery="div.oe_bottom" t-operation="replace" />
+        <t t-jquery="div.oe_bottom" t-operation="replace">
+            <div>欢迎使用，选择自由是您的自由！</div>
+            <div>
+                <ul>
+                  <li>依尘</li>
+                  <li>QQ：363682158</li>
+                  <li>Email：w55156@163.com</li>
+                </ul>
+           </div>
+        </t>
         <t t-jquery="img.oe_logo" t-operation="replace" />
     </t>
     <!-- disable ?debug in url -->
@@ -30,20 +39,20 @@
     </t>
     <!-- WebClient -->
     <t t-extend="WebClient">
-        <t t-jquery="a.oe_logo" t-operation="replace">
-             <a t-attf-href="/?ts=#{Date.now()}#{debug}">
-             <img src='/zz_customization/static/src/img/w180h92.gif'/>
-             </a>
+        <t t-jquery="div.oe_footer" t-operation="replace">
+            <div class="oe_footer">选择自由是您的自由</div>
         </t>
-        <t t-jquery="div.oe_footer" t-operation="replace" />
     </t>
     <!-- Login -->
     <t t-extend="Login">
-        <t t-jquery="div.oe_login_footer" t-operation="replace" >
-        <a href="#" class="oe_login_manage_db">Manage Databases</a>
-        </t>
         <t t-jquery="div.oe_login_logo" t-operation="replace">
             <div class="oe_login_logo"><img src='/zz_customization/static/src/img/w190h46.gif'/></div>
+        </t>
+        <t t-jquery="div.oe_login_footer" t-operation="replace" >
+          <div class="oe_login_footer">
+            <a href="#" class="oe_login_manage_db">Manage Databases</a> |
+            <a href="#" >选择自由是您的自由</a>
+          </div>
         </t>
     </t>
 </templates>

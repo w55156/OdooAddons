@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="0">
-        <record model="res.groups" id="group_xz_manager">
-            <field name="name">管理员</field>
-            <field name="category_id" ref="base.module_category_xinzi" />
+        <record id="res_users_tongji" model="res.users">
+            <field name="name">统计</field>
+            <field name="login">tongji</field>
+        </record>
+        <record id="res_users_caiwu" model="res.users">
+            <field name="name">财务</field>
+            <field name="login">caiwu</field>
+        </record>
+        <record id="module_category_xinzi" model="ir.module.category">
+            <field name="name">薪资</field>
         </record>
         <record model="res.groups" id="group_xz_user">
             <field name="name">用户</field>
-            <field name="category_id" ref="base.module_category_xinzi" />
+            <field name="category_id" ref="module_category_xinzi" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4,ref('res_users_tongji'))]" />
         </record>
         <record model="res.groups" id="group_xz_caiwu">
             <field name="name">财务</field>
-            <field name="category_id" ref="base.module_category_xinzi" />
+            <field name="category_id" ref="module_category_xinzi" />
+            <field name="implied_ids" eval="[(4, ref('group_xz_user'))]"/>
+            <field name="users" eval="[(4,ref('res_users_caiwu'))]" />
+        </record>
+        <record model="res.groups" id="group_xz_manager">
+            <field name="name">管理员</field>
+            <field name="category_id" ref="module_category_xinzi" />
+            <field name="implied_ids" eval="[(4,ref('group_xz_caiwu'))]" />
+            <field name="users" eval="[(4,ref('base.user_root'))]" />
         </record>
     </data>
 </openerp>

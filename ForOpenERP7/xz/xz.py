@@ -452,6 +452,7 @@ class xz_chuqgs(osv.osv):
            'state': fields.selection(STATE_SELECTION, u'状态', readonly=True,states={'draft': [('readonly', False)]}),
            'gdomain':fields.text(u'gdomain')
           }
+    
     def _get_default_period_id(self,cr,uid,ids):
         riq_sp = datetime.datetime.strftime(datetime.date.today(),'%m/%Y/%d')
         myear=riq_sp[:7]
